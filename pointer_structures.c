@@ -31,7 +31,9 @@ void write_data(Device *device, uint32_t value)
 
 
 // returns the current data register
-uint32_t read_data(Device *device)
+// adding const means we cannot modify the Device through this pointer.
+// be weary of where const is and what it means.
+uint32_t read_data(const Device *device)
 {
     return device->data;
 
