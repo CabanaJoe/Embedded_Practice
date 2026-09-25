@@ -3,10 +3,13 @@
 
 
 // creating a structure
+// [make status a volatile member (hardware can change status W/O C code directly assigning it)
+// dont assume the value stays the same. Everytime the program ask for it, actually read it
+// from memory.]
 typedef struct
 {
     uint32_t control;
-    uint32_t status;
+    volatile uint32_t status;
     uint32_t data;
 }Device;
 
@@ -39,18 +42,30 @@ uint32_t read_data(const Device *device)
 
 }
 
+// function to return the current 'status' value
+uint32_t read_status(const Device *device)
+{
+    return device->status;
+}
+
 
 int main()
 {
     // create device
     Device device;
 
-    // initialize it
+    // initialize device
     initialize_device(&device);
+
+    // give status a test value
+    device.status = 12214;
 
     // write a value to data
     write_data(&device, 12345);
 
     // read value back and print it.
     printf("The data register value is %d.\n", read_data(&device));
+
+    // call read_status and print it
+    printf("The status register value is %d.\n", read_status(&device));
 }
