@@ -49,6 +49,24 @@ uint32_t read_status(const Device *device)
 }
 
 
+// assume staus register uses following bits
+// bit 0 - ready
+// bit 1 - busy
+// bit 2 - error
+// bit 3 - data_available
+// return 1 if bit 0 of status is set, other wise 0
+uint8_t is_ready(const Device *device)
+{
+
+}
+
+// returns 1 if bit 2 of status is set, otherwise 0
+uint8_t has_error(const Device *device)
+{
+
+}
+
+
 int main()
 {
     // create device
